@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../components/Button";
+import "../App.css";
 
 function Home() {
   return (
@@ -16,8 +17,8 @@ function Home() {
             {"Become your own money manager and make every cent count"}
           </p>
         </div>
-        <Button className="button" text={"Sign Up"} />
-        <Button className="button" text={"Login"} />
+        <Button text={"Sign Up"} />
+        <Button text={"Login"} />
       </div>
     </>
   );
