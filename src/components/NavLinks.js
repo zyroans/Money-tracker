@@ -5,7 +5,9 @@ export default class Button extends Component {
   render() {
     return (
       <Link to={this.props.URL}>
-        <button className="button">{this.props.text}</button>
+        <button className={`button ${this.props.accent ? "accent" : ""}`}>
+          {this.props.text}
+        </button>
       </Link>
     );
   }

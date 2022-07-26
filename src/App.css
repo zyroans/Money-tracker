@@ -66,3 +66,8 @@
   line-height: 21.78px;
   margin-top: 16px;
 }
+
+.button.accent {
+  background-color: #eee5ff;
+  color: #7f3dff;
+}

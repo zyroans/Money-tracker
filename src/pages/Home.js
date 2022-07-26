@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 import NavLinks from "../components/NavLinks";
-import image from "../assets/money.png";
+import image from "../assets/slide1.svg";
 
 function Home() {
   return (
@@ -22,7 +22,7 @@ function Home() {
         </div>
         <div className="btn-container">
           <NavLinks URL={"sign-up"} text={"Sign Up"} />
-          <NavLinks URL={"login"} text={"Login"} />
+          <NavLinks URL={"login"} text={"Login"} accent={true} />
         </div>
       </div>
     </>

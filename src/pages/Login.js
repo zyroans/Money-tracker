@@ -14,7 +14,7 @@ function Login() {
       <Button text={"Login"} />
       <a href="www.google.com">Forgot Password?</a>
       <p>Don't have account yet?</p>
-      <Link to={"sign-up"}>Sign Up</Link>
+      <Link to={"/sign-up"}>Sign Up</Link>
     </div>
   );
 }
