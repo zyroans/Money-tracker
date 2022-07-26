@@ -1,9 +1,10 @@
 import React from "react";
 import Button from "../components/Button";
+import "../App.css";
 
 function SingUp() {
   return (
-    <div>
+    <div className="home-container">
       <div>
         <h1>Sign Up</h1>
       </div>
