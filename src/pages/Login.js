@@ -12,7 +12,7 @@ function Login() {
         <input type={"password"} placeholder={"Password"} />
       </form>
       <Button text={"Login"} />
-      <a href="google.com">Forgot Password?</a>
+      <a href="www.google.com">Forgot Password?</a>
       <p>Don't have account yet?</p>
       <Link to={"sign-up"}>Sign Up</Link>
     </div>

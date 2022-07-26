@@ -11,12 +11,14 @@ function Home() {
           <div className="description-image-container">
             <img src={image} alt="imagen" className="description-image" />
           </div>
-          <h1 className="description-title">
-            {"Gain total control of your money"}
-          </h1>
-          <p className="description-paragraph">
-            {"Become your own money manager and make every cent count"}
-          </p>
+          <div className="description-text">
+            <h1 className="description-title">
+              {"Gain total control of your money"}
+            </h1>
+            <p className="description-paragraph">
+              {"Become your own money manager and make every cent count"}
+            </p>
+          </div>
         </div>
         <div className="btn-container">
           <NavLinks URL={"sign-up"} text={"Sign Up"} />
