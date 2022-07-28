@@ -7,10 +7,10 @@ function Home() {
   return (
     <>
       <div className="home-container">
+        <div className="description-image-container">
+          <img src={image} alt="imagen" className="description-image" />
+        </div>
         <div className="description-container">
-          <div className="description-image-container">
-            <img src={image} alt="imagen" className="description-image" />
-          </div>
           <div className="description-text">
             <h1 className="description-title">
               {"Gain total control of your money"}

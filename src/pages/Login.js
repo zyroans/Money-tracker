@@ -7,13 +7,13 @@ function Login() {
   return (
     <div className="home-container">
       <h1>Login</h1>
-      <form>
-        <input type={"email"} placeholder={"Email"} />
-        <input type={"password"} placeholder={"Password"} />
+      <form className="forms-container">
+        <input type={"email"} placeholder={"Email"} className="forms" />
+        <input type={"password"} placeholder={"Password"} className="forms" />
       </form>
       <Button text={"Login"} />
       <a href="www.google.com">Forgot Password?</a>
-      <p>Don't have account yet?</p>
+      <p className="description-paragraph">Don't have account yet?</p>
       <Link to={"/sign-up"}>Sign Up</Link>
     </div>
   );

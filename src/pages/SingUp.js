@@ -8,19 +8,27 @@ function SingUp() {
       <div>
         <h1>Sign Up</h1>
       </div>
-      <input placeholder="Name" type={"text"}></input>
-      <input placeholder="Email" type={"email"}></input>
-      <input placeholder="Password" type={"password"}></input>
-      <div>
+      <form className="forms-container">
+        <input placeholder="Name" type={"text"} className="forms"></input>
+        <input placeholder="Email" type={"email"} className="forms"></input>
+        <input
+          placeholder="Password"
+          type={"password"}
+          className="forms"
+        ></input>
+      </form>
+      <div className="TC">
         <input type={"checkbox"}></input>
         <p>By signing up, you agree to the</p>
         <a href="https://www.google.com">
           Terms of Servicer and Privacy Policy
         </a>
       </div>
-      <Button text={"Sign Up"} />
-      <p>Or whit</p>
-      <Button text={"Sign Up with Google"} />
+      <div className="btn-container">
+        <Button text={"Sign Up"} />
+        <p className="description-paragraph">Or whit</p>
+        <Button text={"Sign Up with Google"} />
+      </div>
     </div>
   );
 }
