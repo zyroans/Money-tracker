@@ -1,0 +1,1723 @@
+openapi: 3.0.0
+info:
+  title: Money Lover Clone API
+  description: This is an awesome API to clone MoneyLover
+  contact:
+    email: trianag24@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+    description: Localhost Testing Server
+  - url: https://moneyloverclone.herokuapp.com
+    description: Production Server
+tags:
+  - name: users
+    description: Users API calls
+  - name: transactions
+    description: Transaction API calls
+  - name: categories
+    description: Category API calls
+  - name: wallets
+    description: Wallet API Calls
+paths:
+  /users/balance:
+    get:
+      tags:
+        - users
+      summary: Obtain the balance for the current wallet
+      operationId: "getGlobalBalance"
+      responses:
+        "200":
+          description: Global balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalBalance"
+  /transactions/starred:
+    get:
+      tags:
+        - transactions
+      summary: List all starred Transactions for a User
+      operationId: "getStarredTransactions"
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/{transactionId}/children:
+    get:
+      tags:
+        - transactions
+      summary: List all child transactions from the given id
+      operationId: "getChildTransactions"
+      parameters:
+        - name: transactionId
+          in: path
+          description: Transaction you want to fetch the childs from
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Returns all children transaction for the given id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/{transactionId}/unstar:
+    put:
+      tags:
+        - transactions
+      summary: List all starred Transactions for a User
+      operationId: "unstarTransaction"
+      parameters:
+        - name: transactionId
+          in: path
+          description: Transaction you want to unstar
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Returns a header
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/{transactionId}/mark_as_paid:
+    put:
+      tags:
+        - transactions
+      summary: Mark transaction as paid (isPendingPayment = false)
+      operationId: "markAsPaid"
+      parameters:
+        - name: transactionId
+          in: path
+          description: Transaction you want to mark as paid
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Returns a header
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/search/{searchTerm}:
+    get:
+      tags:
+        - transactions
+      summary: List all transactions that contains the search tearm
+      operationId: "searchTransactions"
+      parameters:
+        - name: searchTerm
+          in: path
+          description: Search term to be found
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            example: Perro
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /transactions/pending:
+    get:
+      tags:
+        - transactions
+      summary: List all pending Transactions for a User
+      operationId: "getPendingTransactions"
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/notifications:
+    get:
+      tags:
+        - transactions
+      summary: List all pending Transactions for a User that haven't been seen by the user
+      operationId: "getNotifications"
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/cashflow:
+    get:
+      tags:
+        - transactions
+      summary: Lists the cashflow for the last 12 months for the current user
+      operationId: "getCashflow"
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MonthlyCashflow"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/balance/{lowerYear}/{lowerMonth}/{upperYear}/{upperMonth}:
+    get:
+      tags:
+        - transactions
+      summary: List current month balance
+      operationId: "getMonthlyBalance"
+      parameters:
+        - name: lowerYear
+          in: path
+          description: Lower year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: lowerMonth
+          in: path
+          description: Lower month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2
+        - name: upperYear
+          in: path
+          description: Upper year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: upperMonth
+          in: path
+          description: Upper month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: Monthly balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonthlyBalance"
+  /transactions/{lowerYear}/{lowerMonth}/{upperYear}/{upperMonth}:
+    get:
+      tags:
+        - transactions
+      summary: Lists all Transactions
+      operationId: getTransactions
+      parameters:
+        - name: includeAllTransactions
+          in: query
+          schema:
+            type: boolean
+            example: true
+            default: false
+          description: Wether to include or not transactions from hidden Wallets
+
+        - name: lowerYear
+          in: path
+          description: Lower year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: lowerMonth
+          in: path
+          description: Lower month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2
+        - name: upperYear
+          in: path
+          description: Upper year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: upperMonth
+          in: path
+          description: Upper month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /transactions/transfer:
+    post:
+      tags:
+        - transactions
+      summary: "Creates two transactions for both wallets"
+      operationId: createTransfer
+      requestBody:
+        description: Information for creating transactions
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferTransactionInfo"
+        required: true
+      responses:
+        "201":
+          description: Created header
+
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /transactions:
+    post:
+      tags:
+        - transactions
+      summary: Creates a Transaction
+      operationId: createTransaction
+      requestBody:
+        description: Transaction to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+        required: true
+      responses:
+        "200":
+          description: Returns the created Transaction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    put:
+      tags:
+        - transactions
+      summary: Updates a Transaction
+      operationId: updateTransaction
+      requestBody:
+        description: Transaction to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+        required: true
+      responses:
+        "200":
+          description: Returns the updated Transaction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /transactions/{id}:
+    delete:
+      tags:
+        - transactions
+      summary: Destroys a Transaction
+      operationId: destroyTransaction
+      parameters:
+        - name: id
+          in: path
+          description: id of the Transaction to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Transaction was deleted
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /wallets/{walletId}/balance:
+    get:
+      tags:
+        - wallets
+      summary: Obtain the balance for the current wallet
+      operationId: "getBalanceByWallet"
+      parameters:
+        - name: walletId
+          in: path
+          description: id of the Wallet
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Global balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalBalance"
+
+  /wallets:
+    get:
+      tags:
+        - wallets
+      summary: Lists all Wallets
+      operationId: getWallets
+      responses:
+        "200":
+          description: Returns all Wallets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicWallet"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    post:
+      tags:
+        - wallets
+      summary: Creates a Wallet
+      operationId: createWallet
+      requestBody:
+        description: Wallet to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Wallet"
+        required: true
+      responses:
+        "201":
+          description: Returns the created Wallet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wallet"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    put:
+      tags:
+        - wallets
+      summary: Updates a Wallet
+      operationId: updateWallet
+      requestBody:
+        description: Wallet to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Wallet"
+        required: true
+      responses:
+        "200":
+          description: Returns the updated Wallet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wallet"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /wallets/{id}/archive:
+    delete:
+      tags:
+        - wallets
+      summary: Archives a Wallet
+      operationId: archiveWallet
+      parameters:
+        - name: id
+          in: path
+          description: id of the Wallet to be archived
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Wallet was archived
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /wallets/{id}:
+    delete:
+      tags:
+        - wallets
+      summary: Destroys a Wallet
+      operationId: destroyWallet
+      parameters:
+        - name: id
+          in: path
+          description: id of the Wallet to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns the destroyed Wallet
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /wallets/icons/list:
+    get:
+      security: []
+      tags:
+        - wallets
+      summary: List all available wallet icons
+      operationId: "listWalletIcons"
+      responses:
+        "200":
+          description: All wallet icons paths
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "reose.png"
+  ? /wallets/{walletId}/transactions/{lowerYear}/{lowerMonth}/{upperYear}/{upperMonth}
+  : get:
+      tags:
+        - wallets
+      summary: Lists all Transactions by a given Wallet
+      operationId: getTransactionsByWallet
+      parameters:
+        - name: walletId
+          in: path
+          description: Wallet id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 1
+        - name: lowerYear
+          in: path
+          description: Lower year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: lowerMonth
+          in: path
+          description: Lower month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2
+        - name: upperYear
+          in: path
+          description: Upper year of date range (up to 3000)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 2020
+        - name: upperMonth
+          in: path
+          description: Upper month of date range (1-12)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicTransaction"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /wallets/siri/{name}:
+    get:
+      tags:
+        - wallets
+      summary: List the first matching Wallet by comparing the given name
+      operationId: "getWalletByName"
+      parameters:
+        - name: name
+          in: path
+          description: name of the Wallet to search for
+          required: true
+          style: simple
+          explode: false
+          example: "seguro"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The matching Wallet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wallet"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /categories/adjust:
+    get:
+      tags:
+        - categories
+      summary: Lists all Categories
+      operationId: getAdjustBalanceCategories
+      responses:
+        "200":
+          description: Returns all adjust balance Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: Lists all Categories
+      operationId: getCategories
+      responses:
+        "200":
+          description: Returns all Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    put:
+      tags:
+        - categories
+      summary: Updates a Category
+      operationId: updateCategory
+      requestBody:
+        description: Category to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+        required: true
+      responses:
+        "200":
+          description: Returns the updated Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    post:
+      tags:
+        - categories
+      summary: Creates a Category
+      operationId: createCategory
+      requestBody:
+        description: Category to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+        required: true
+      responses:
+        "201":
+          description: Returns the created Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /categories/{id}:
+    delete:
+      tags:
+        - categories
+      summary: Destroys a Category
+      operationId: destroyCategory
+      parameters:
+        - name: id
+          in: path
+          description: id of the Category to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns the destroyed Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /categories/{id}/cashflow:
+    get:
+      tags:
+        - categories
+      summary: Lists the cashflow for the last 12 months for the current category for the current user
+      operationId: "getCashflowByCategory"
+      parameters:
+        - name: id
+          in: path
+          description: id of the Category to be requested
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns all Transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MonthlyCashflow"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /categories/{id}/archive:
+    delete:
+      tags:
+        - categories
+      summary: Archives a Category
+      operationId: archiveCategory
+      parameters:
+        - name: id
+          in: path
+          description: id of the Category to be archived
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns the archived Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /categories/icons/list:
+    get:
+      security: []
+      tags:
+        - categories
+      summary: List all available category icons
+      operationId: "listCategoryIcons"
+      responses:
+        "200":
+          description: All category icons paths
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "reose.png"
+
+  /categories/siri/{name}:
+    get:
+      tags:
+        - categories
+      summary: List the first matching category by comparing the given name
+      operationId: "getCategoryByName"
+      parameters:
+        - name: name
+          in: path
+          description: name of the Category to search for
+          required: true
+          style: simple
+          explode: false
+          example: "seguro"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The matching Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /categories/outcomes:
+    get:
+      tags:
+        - categories
+      summary: Returns all data for displaying a pie chart with the outcomes of the current month
+      operationId: getOutcomesByCategories
+      responses:
+        "200":
+          description: Chart data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryOutcomeResponse"
+
+  /users/daily_notifications:
+    post:
+      security: []
+      tags:
+        - users
+      summary: Creates a user
+      operationId: sendDailyNotifications
+      responses:
+        "200":
+          description: Chart data
+
+  /users/token/{token}:
+    post:
+      security: []
+      tags:
+        - users
+      summary: Creates a user
+      operationId: saveToken
+      parameters:
+        - name: token
+          in: path
+          description: id of the Projection to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Chart data
+
+  /users:
+    post:
+      security: []
+      tags:
+        - users
+      summary: Creates a user
+      operationId: registerUser
+      requestBody:
+        description: User to be authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Chart data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/login:
+    post:
+      security: []
+      tags:
+        - users
+      summary: Login with provided credentials
+      operationId: login
+      requestBody:
+        description: User to be authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: Correctly logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /projections:
+    get:
+      tags:
+        - projections
+      summary: Lists all Projections
+      operationId: getProjections
+      responses:
+        "200":
+          description: Returns all Projections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Projection"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    post:
+      tags:
+        - projections
+      summary: Creates a Projection
+      operationId: createProjection
+      requestBody:
+        description: Projection to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Projection"
+        required: true
+      responses:
+        "201":
+          description: Returns the created Projection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Projection"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    put:
+      tags:
+        - projections
+      summary: Updates a Projection
+      operationId: updateProjection
+      requestBody:
+        description: Projection to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Projection"
+        required: true
+      responses:
+        "200":
+          description: Returns the updated Projection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Projection"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /projections/duplicate:
+    post:
+      tags:
+        - projections
+      summary: Duplicates a Projection
+      operationId: duplicateProjection
+      requestBody:
+        description: Projection to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DuplicateProjectionInfo"
+        required: true
+      responses:
+        "200":
+          description: A Projection was duplicated correctly
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /projections/{id}:
+    delete:
+      tags:
+        - projections
+      summary: Destroys a Projection
+      operationId: destroyProjection
+      parameters:
+        - name: id
+          in: path
+          description: id of the Projection to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns the destroyed Projection
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /projection-steps/{projectionId}:
+    get:
+      tags:
+        - ProjectionSteps
+      summary: Lists all ProjectionSteps
+      operationId: getProjectionSteps
+      parameters:
+        - name: projectionId
+          in: path
+          description: id of the Projection which steps needs to be fetched
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Returns all ProjectionSteps
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProjectionStep"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /projection-steps:
+    post:
+      tags:
+        - ProjectionSteps
+      summary: Creates a ProjectionStep
+      operationId: createProjectionStep
+      requestBody:
+        description: ProjectionStep to be stored
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectionStep"
+        required: true
+      responses:
+        "201":
+          description: Returns the created ProjectionStep
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectionStep"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+    put:
+      tags:
+        - ProjectionSteps
+      summary: Updates a ProjectionStep
+      operationId: updateProjectionStep
+      requestBody:
+        description: ProjectionStep to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectionStep"
+        required: true
+      responses:
+        "200":
+          description: Returns the updated ProjectionStep
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectionStep"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /projection-steps/{id}:
+    delete:
+      tags:
+        - ProjectionSteps
+      summary: Destroys a ProjectionStep
+      operationId: destroyProjectionStep
+      parameters:
+        - name: id
+          in: path
+          description: id of the ProjectionStep to be destroyed
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Step was deleted
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+    AutomationRule:
+      required:
+        - description
+        - isExpense
+        - isPendingPayment
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Compra en"
+        walletId:
+          type: integer
+          example: 1
+        categoryId:
+          type: integer
+          example: 1
+        isPendingPayment:
+          type: boolean
+          default: false
+          example: true
+        isExpense:
+          type: boolean
+          default: false
+          example: true
+    Device:
+      required:
+        - token
+        - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 1
+        token:
+          type: string
+          example: "Token"
+
+    User:
+      required:
+        - email
+        - passwordHash
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: "email@email.com"
+        passwordHash:
+          type: string
+          example: "S3cr3t"
+    CategoryOutcomeResponse:
+      required:
+        - id
+        - name
+        - imageURL
+        - outcome
+        - outcomePreviousPeriod
+        - color
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Category"
+        imageURL:
+          type: string
+          example: "rose.png"
+        outcome:
+          type: number
+          example: 1234
+        outcomePreviousPeriod:
+          type: number
+          example: 1234
+        color:
+          type: string
+          example: "#ffffff"
+
+    GlobalBalance:
+      required:
+        - balance
+      type: object
+      properties:
+        balance:
+          type: number
+          example: 1234
+    MonthlyBalance:
+      required:
+        - initialBalance
+        - finalBalance
+      type: object
+      properties:
+        initialBalance:
+          type: number
+          example: 124
+        finalBalance:
+          type: number
+          example: 124
+    ResponseError:
+      required:
+        - error
+        - reason
+      type: object
+      properties:
+        error:
+          type: boolean
+          example: true
+        reason:
+          type: string
+          example: "This is an error"
+    Category:
+      required:
+        - userId
+        - name
+        - isIncome
+        - isExcludedFromReport
+        - isArchived
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "carlos"
+        imageURL:
+          type: string
+          example: "image.png"
+        isIncome:
+          type: boolean
+          example: false
+        isTransferCategory:
+          type: boolean
+          example: false
+          default: false
+        isAdjustBalanceCategory:
+          type: boolean
+          example: false
+          default: false
+        isExcludedFromReport:
+          type: boolean
+          example: false
+          default: false
+        userId:
+          type: integer
+          example: 1
+        color:
+          type: string
+          example: "#FFFFFF"
+        isArchived:
+          type: boolean
+          example: false
+          default: false
+    PublicTransaction:
+      required:
+        - description
+        - userId
+        - amount
+        - date
+        - isStarred
+        - isPendingPayment
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: Compra en McDonalds
+        amount:
+          type: number
+          example: 4000
+        isStarred:
+          type: boolean
+          example: true
+        isPendingPayment:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date-time
+          example: "2020-03-03"
+        category:
+          $ref: "#/components/schemas/Category"
+        wallet:
+          $ref: "#/components/schemas/Wallet"
+        transferToWalletId:
+          type: integer
+          example: 1
+        transferFromWalletId:
+          type: integer
+          example: 1
+        parentTransaction:
+          type: integer
+          example: 1
+
+    PublicWallet:
+      allOf:
+        - $ref: "#/components/schemas/Wallet"
+        - type: object
+          required:
+            - currentBalance
+          properties:
+            currentBalance:
+              type: number
+              example: 250
+
+    MonthlyCashflow:
+      required:
+        - amount
+        - month
+        - year
+      type: object
+      properties:
+        amount:
+          type: number
+          example: 1000
+        month:
+          type: integer
+          example: 1
+        year:
+          type: integer
+          example: 20
+
+    Wallet:
+      required:
+        - name
+        - initialBalance
+        - iconURL
+        - isArchived
+        - excludedFromTotal
+        - userId
+        - color
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Wallet Example Name"
+        initialBalance:
+          type: number
+          example: 3550
+        iconURL:
+          type: string
+          example: "icons/rose.png"
+        isArchived:
+          type: boolean
+          example: false
+        excludedFromTotal:
+          type: boolean
+        userId:
+          type: integer
+          example: 1
+        lastFourDigits:
+          type: string
+          example: "1234, 1234"
+        color:
+          type: string
+          example: "#FFFFFF"
+    TransferTransactionInfo:
+      required:
+        - amount
+        - fromWalletId
+        - toWalletId
+        - date
+        - userId
+      type: object
+      properties:
+        amount:
+          type: number
+          example: 15000
+        fromWalletId:
+          type: integer
+          example: 1
+        toWalletId:
+          type: integer
+          example: 2
+        date:
+          type: string
+          format: date-time
+          example: "2020-03-05"
+        userId:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Pago de cartera"
+        parentTransaction:
+          type: integer
+          example: 1
+
+    ProjectionStep:
+      required:
+        - projectionId
+        - isFixedValue
+        - percentageValue
+        - realValue
+        - isActive
+        - description
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        projectionId:
+          type: integer
+          example: 1
+        walletId:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "April Q1"
+        realValue:
+          type: number
+          example: 1024.5
+        percentageValue:
+          type: number
+          example: 1024.5
+        isActive:
+          type: boolean
+          example: true
+        isFixedValue:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-03-05"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-03-05"
+    Projection:
+      required:
+        - name
+        - isAlreadyExecuted
+        - initialValue
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 1
+        walletId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "April Q1"
+        isAlreadyExecuted:
+          type: boolean
+          example: true
+        initialValue:
+          type: number
+          example: 126500
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-03-05"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-03-05"
+
+    Transaction:
+      required:
+        - userId
+        - description
+        - categoryId
+        - walletId
+        - amount
+        - date
+        - isPendingPayment
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: Compra en McDonalds
+        categoryId:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          example: 4000
+        walletId:
+          type: integer
+          example: 1
+        transferFromWalletId:
+          type: integer
+          example: 1
+        transferToWalletId:
+          type: integer
+          example: 1
+        projectionId:
+          type: integer
+          example: 1
+        isStarred:
+          type: boolean
+          example: false
+        isPendingPayment:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date-time
+          example: "2020-03-03"
+        userId:
+          type: integer
+          example: 1
+        parentTransaction:
+          type: integer
+          example: 1
+
+    DuplicateProjectionInfo:
+      required:
+        - projectionId
+        - name
+        - initialValue
+      type: object
+      properties:
+        projectionId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "My Projection"
+        initialValue:
+          type: number
+          example: 45632
+        walletId:
+          type: integer
+          example: 1
+security:
+  - basicAuth: []

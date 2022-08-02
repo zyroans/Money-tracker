@@ -5,8 +5,8 @@ import "../App.css";
 function SingUp() {
   return (
     <div className="home-container">
-      <div>
-        <h1>Sign Up</h1>
+      <div className="page-title-container">
+        <h1 className="page-title">Sign Up</h1>
       </div>
       <form className="forms-container">
         <input placeholder="Name" type={"text"} className="forms"></input>
@@ -18,14 +18,26 @@ function SingUp() {
         ></input>
       </form>
       <div className="TC">
-        <input type={"checkbox"}></input>
-        <p>By signing up, you agree to the </p>
-        <a href="https://www.google.com">Terms of Service and Privacy Policy</a>
+        <input type={"checkbox"} className="TC-checkbox"></input>
+        <div className="TC-text">
+          <p>
+            By signing up, you agree to the{" "}
+            {
+              <a href="https://www.google.com">
+                Terms of Service and Privacy Policy
+              </a>
+            }
+          </p>
+        </div>
       </div>
       <div className="btn-container">
         <Button text={"Sign Up"} />
         <p className="description-paragraph">Or with</p>
-        <Button text={"Sign Up with Google"} />
+        <Button
+          text={"Sign Up with Google"}
+          google={true}
+          image="/assets/flat-color-icons_google.svg"
+        />
       </div>
     </div>
   );

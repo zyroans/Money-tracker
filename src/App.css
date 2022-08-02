@@ -12,7 +12,6 @@
   flex-direction: column;
   gap: 15px;
   height: 100vh;
-  padding-bottom: 8px;
   text-align: center;
 }
 
@@ -81,7 +80,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: 8px 16px;
-  gap: 10px;
+  gap: 24px;
 }
 
 .forms {
@@ -93,9 +92,9 @@
   border-radius: 16px;
 }
 
-::placeholder {
+input::placeholder {
   height: 32px;
-
+  padding: 16px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -103,32 +102,152 @@
   line-height: 18px;
 }
 
-.TC > input,
-.TC > p {
-  display: inline-block;
-  text-align: start;
-}
-.TC > p {
-  margin-left: 10px;
-}
-
 li.inactive {
   display: none;
 }
+
 ul {
   list-style: none;
+}
+
+.btn-slide-container {
+  display: flex;
+  align-items: center;
+  align-self: center;
 }
 
 .li-button {
   display: inline-block;
 }
 
-.btn-slide {
-  width: 15px;
-  height: 15px;
+.btn-slide-inactive {
+  background: #eee5ff;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: none;
   margin: 10px;
 }
-.btn-slide.active {
+
+.btn-slide-active {
+  background: #7f3dff;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #7f3dff;
+  cursor: pointer;
+}
+
+/* SignUp.js */
+
+.page-title-container {
+  margin-top: 16px;
+  margin-bottom: 75px;
+}
+
+.page-title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.TC {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 17px;
+  margin-bottom: 27px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.TC-text {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: initial;
+}
+
+.TC-checkbox {
+  height: 32px;
+  width: 32px;
+  border-radius: 10%;
+}
+
+.button.google {
+  background-color: #f1f1fa;
+  color: #000;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+a {
+  color: #7f3dff;
+}
+
+/* Login.js */
+
+.login-btn-container {
+  margin-top: 40px;
+  margin-bottom: 33px;
+}
+
+.login-forgot-password {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+/* AccountBalance.js */
+.account-balance-resume {
+  display: flex;
+  flex-direction: row;
+  margin-left: 16px;
+  margin-right: 16px;
+  gap: 16px;
+  justify-content: center;
+}
+.account-balance-income {
+  width: 164px;
+  height: 80px;
+  background: #00a86b;
+  border-radius: 28px;
+  color: #fff;
+}
+.account-balance-expenses {
+  width: 164px;
+  height: 80px;
+  color: #fff;
+  background: #fd3c4a;
+  border-radius: 28px;
+}
+
+/* Resume.js */
+.resume-container {
+  background: linear-gradient(
+    183.33deg,
+    #fff6e6 9.56%,
+    rgba(248, 237, 216, 0) 124.27%
+  );
+}
+
+.resume-header {
+  margin-top: 44px;
+  margin-left: 16px;
+  margin-right: 16px;
+  display: flex;
+  justify-content: space-between;
 }

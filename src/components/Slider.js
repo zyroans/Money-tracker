@@ -46,11 +46,13 @@ function Slider() {
           </li>
         ))}
       </ul>
-      <ul>
+      <ul className="btn-slide-container">
         {infoSlider.map((btn, index) => (
           <li key={`b${index}`} className="li-button">
             <button
-              className="btn-slide"
+              className={`btn-slide-${
+                index === currentIndex ? "active" : "inactive"
+              }`}
               onClick={() => {
                 setCurrentIndex(index);
               }}
