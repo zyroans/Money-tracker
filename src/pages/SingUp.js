@@ -19,14 +19,12 @@ function SingUp() {
       </form>
       <div className="TC">
         <input type={"checkbox"}></input>
-        <p>By signing up, you agree to the</p>
-        <a href="https://www.google.com">
-          Terms of Servicer and Privacy Policy
-        </a>
+        <p>By signing up, you agree to the </p>
+        <a href="https://www.google.com">Terms of Service and Privacy Policy</a>
       </div>
       <div className="btn-container">
         <Button text={"Sign Up"} />
-        <p className="description-paragraph">Or whit</p>
+        <p className="description-paragraph">Or with</p>
         <Button text={"Sign Up with Google"} />
       </div>
     </div>
