@@ -59,6 +59,7 @@
 .btn-container {
   margin-left: 16px;
   margin-right: 16px;
+  margin-bottom: 16px;
 }
 
 .button {
@@ -161,7 +162,7 @@ button:hover {
   border: none;
 }
 
-.page-title-container {
+.page-navigation-container {
   display: flex;
   margin-top: 16px;
   margin-bottom: 75px;
@@ -174,6 +175,14 @@ button:hover {
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
+}
+.page-title-container {
+  display: flex;
+  align-items: center;
+}
+.page-title-fill {
+  width: 32px;
+  height: 32px;
 }
 
 .TC {

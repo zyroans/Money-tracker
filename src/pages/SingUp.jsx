@@ -7,14 +7,14 @@ import BackButton from "../components/BackButton";
 function SingUp() {
   return (
     <div className="home-container">
-      <div className="page-title-container">
+      <div className="page-navigation-container">
         <div>
           <BackButton />
         </div>
-        <div>
+        <div className="page-title-container">
           <h1 className="page-title">Sign Up</h1>
         </div>
-        <div></div>
+        <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
         <input placeholder="Name" type={"text"} className="forms"></input>

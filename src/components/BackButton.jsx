@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 function BackButton() {
-  let history = useNavigate();
+  let navigate = useNavigate();
 
   function handleClick() {
-    history.push("/");
+    navigate(-1);
   }
   return (
     <>

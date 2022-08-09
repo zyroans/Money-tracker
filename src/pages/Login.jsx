@@ -7,14 +7,14 @@ import BackButton from "../components/BackButton";
 function Login() {
   return (
     <div className="home-container">
-      <div className="page-title-container">
+      <div className="page-navigation-container">
         <div>
           <BackButton />
         </div>
-        <div>
+        <div className="page-title-container">
           <h1 className="page-title">Login</h1>
         </div>
-        <div></div>
+        <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
         <input type={"email"} placeholder={"Email"} className="forms" />
