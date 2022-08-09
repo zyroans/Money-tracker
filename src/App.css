@@ -15,14 +15,19 @@
   text-align: center;
 }
 
+.slider-container {
+  flex-grow: 1;
+}
+
 .description-image-container {
+  display: flex;
   flex-grow: 1;
 }
 
 .description-image {
-  display: block;
+  flex-grow: 1;
+  max-width: 100%;
   height: auto;
-  margin: 0 auto;
 }
 
 .description-text {
@@ -106,6 +111,12 @@ li.inactive {
   display: none;
 }
 
+li.active {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 ul {
   list-style: none;
 }
@@ -145,9 +156,16 @@ button:hover {
 
 /* SignUp.js */
 
+.back-btn {
+  background-color: #fff;
+  border: none;
+}
+
 .page-title-container {
+  display: flex;
   margin-top: 16px;
   margin-bottom: 75px;
+  justify-content: space-between;
 }
 
 .page-title {
@@ -159,14 +177,76 @@ button:hover {
 }
 
 .TC {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 17px;
-  margin-bottom: 27px;
-  margin-left: 16px;
-  margin-right: 16px;
+  display: block;
+  text-align: justify;
+  position: relative;
+  padding-left: 35px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 20px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
 }
+.TC input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #7f3dff;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.TC:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.TC input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.TC input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.TC .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 .TC-text {
   font-family: "Inter";
   font-style: normal;
@@ -174,6 +254,9 @@ button:hover {
   font-size: 14px;
   line-height: 18px;
   text-align: initial;
+}
+.TC > a {
+  text-decoration: none;
 }
 
 .TC-checkbox {
@@ -209,6 +292,7 @@ a {
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
+  text-decoration: none;
 }
 
 /* AccountBalance.js */

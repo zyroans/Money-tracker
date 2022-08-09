@@ -2,12 +2,19 @@ import React from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import "../App.css";
+import BackButton from "../components/BackButton";
 
 function Login() {
   return (
     <div className="home-container">
       <div className="page-title-container">
-        <h1 className="page-title">Login</h1>
+        <div>
+          <BackButton />
+        </div>
+        <div>
+          <h1 className="page-title">Login</h1>
+        </div>
+        <div></div>
       </div>
       <form className="forms-container">
         <input type={"email"} placeholder={"Email"} className="forms" />
@@ -20,8 +27,9 @@ function Login() {
         <a href="www.google.com" className="login-forgot-password">
           Forgot Password?
         </a>
-        <p className="description-paragraph">Don't have account yet?</p>
-        <Link to={"/sign-up"}>Sign Up</Link>
+        <p className="description-paragraph">
+          Don't have account yet? {<Link to={"/sign-up"}>Sign Up</Link>}
+        </p>
       </div>
     </div>
   );

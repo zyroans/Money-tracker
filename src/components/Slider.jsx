@@ -28,7 +28,7 @@ function Slider() {
   );
   return (
     <>
-      <ul>
+      <ul className="slider-container">
         {infoSlider.map((slide, index) => (
           <li
             className={index === currentIndex ? "active" : "inactive"}
