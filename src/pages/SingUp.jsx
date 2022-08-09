@@ -6,18 +6,19 @@ import BackButton from "../components/BackButton";
 import { useRef } from "react";
 
 function SingUp() {
-  let name = useRef("");
-  let email = useRef("");
-  let password = useRef("");
-  function onSubmit() {
-    console.log(
-      name.current.value,
-      email.current.value,
-      password.current.value
-    );
-    console.log(name);
-  }
+  const name = useRef("");
+  const email = useRef("");
+  const password = useRef("");
+  const TC = useRef("");
 
+  function onSubmit() {
+    if (TC.current.checked === true) {
+      console.log("Validation has been sent with the following data");
+      console.log(`${name.current.name}: ${name.current.value}`);
+      console.log(`${email.current.name}: ${email.current.value}`);
+      console.log(`${password.current.name}: ${password.current.value}`);
+    } else alert("You need to agree Terms of Service and Privacy Policy");
+  }
   return (
     <div className="home-container">
       <div className="page-navigation-container">
@@ -32,18 +33,21 @@ function SingUp() {
       <form className="forms-container">
         <input
           placeholder="Name"
+          name="Name"
           type={"text"}
           className="forms"
           ref={name}
         ></input>
         <input
           placeholder="Email"
+          name="Email"
           type={"email"}
           className="forms"
           ref={email}
         ></input>
         <input
           placeholder="Password"
+          name="Password"
           type={"password"}
           className="forms"
           ref={password}
@@ -56,18 +60,18 @@ function SingUp() {
             Terms of Service and Privacy Policy
           </a>
         }
-        <input type="checkbox" />
+        <input type="checkbox" ref={TC} />
         <span className="checkmark"></span>
       </label>
       <div className="btn-container">
         <Button text={"Sign Up"} action={onSubmit} />
-        <p className="description-paragraph">Or with</p>
+        <p className="paragraph-between-btns">Or with</p>
         <Button
           text={"Sign Up with Google"}
           google={true}
           image="/assets/flat-color-icons_google.svg"
         />
-        <p className="description-paragraph">
+        <p className="paragraph-below-btns">
           Already have an account? {<Link to={"/login"}>Login</Link>}
         </p>
       </div>
