@@ -3,8 +3,21 @@ import Button from "../components/Button";
 import "../App.css";
 import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
+import { useRef } from "react";
 
 function SingUp() {
+  let name = useRef("");
+  let email = useRef("");
+  let password = useRef("");
+  function onSubmit() {
+    console.log(
+      name.current.value,
+      email.current.value,
+      password.current.value
+    );
+    console.log(name);
+  }
+
   return (
     <div className="home-container">
       <div className="page-navigation-container">
@@ -17,12 +30,23 @@ function SingUp() {
         <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
-        <input placeholder="Name" type={"text"} className="forms"></input>
-        <input placeholder="Email" type={"email"} className="forms"></input>
+        <input
+          placeholder="Name"
+          type={"text"}
+          className="forms"
+          ref={name}
+        ></input>
+        <input
+          placeholder="Email"
+          type={"email"}
+          className="forms"
+          ref={email}
+        ></input>
         <input
           placeholder="Password"
           type={"password"}
           className="forms"
+          ref={password}
         ></input>
       </form>
       <label className="TC">
@@ -36,7 +60,7 @@ function SingUp() {
         <span className="checkmark"></span>
       </label>
       <div className="btn-container">
-        <Button text={"Sign Up"} />
+        <Button text={"Sign Up"} action={onSubmit} />
         <p className="description-paragraph">Or with</p>
         <Button
           text={"Sign Up with Google"}
