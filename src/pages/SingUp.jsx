@@ -12,13 +12,11 @@ function SingUp() {
   const TC = useRef("");
   const passwordEye = useRef();
   const [type, setType] = useState("password");
+  const [passwordIcon, setPasswordIcon] = useState("show");
 
   function togglePassword() {
     setType(type === "password" ? "text" : "password");
-    console.log(password.current);
-    console.log(type, " === ", password.current.type);
-    console.log(password.current.type);
-    console.log(type);
+    setPasswordIcon(type === "password" ? "hide" : "show");
   }
 
   function onSubmit() {
@@ -66,7 +64,7 @@ function SingUp() {
             required={true}
           ></input>
           <i className="eye" ref={passwordEye} onClick={() => togglePassword()}>
-            <img alt="eye" src="/assets/eye.svg"></img>
+            <img alt="eye" src={`/assets/${passwordIcon}.png`}></img>
           </i>
         </div>
       </form>
