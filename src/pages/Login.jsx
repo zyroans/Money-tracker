@@ -3,8 +3,15 @@ import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import "../App.css";
 import BackButton from "../components/BackButton";
+import { useRef, useState } from "react";
 
 function Login() {
+  const password = useRef();
+  const passwordEye = useRef();
+  const [type, setType] = useState("password");
+  function togglePassword() {
+    setType(type === "password" ? "text" : "password");
+  }
   return (
     <div className="home-container">
       <div className="page-navigation-container">
@@ -18,7 +25,19 @@ function Login() {
       </div>
       <form className="forms-container">
         <input type={"email"} placeholder={"Email"} className="forms" />
-        <input type={"password"} placeholder={"Password"} className="forms" />
+        <div>
+          <input
+            placeholder="Password"
+            name="Password"
+            type={type}
+            className="forms"
+            ref={password}
+            required={true}
+          ></input>
+          <i className="eye" ref={passwordEye} onClick={togglePassword}>
+            <img alt="eye" src="/assets/eye.svg"></img>
+          </i>
+        </div>
       </form>
       <div className="login-btn-container">
         <Button text={"Login"} />

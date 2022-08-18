@@ -295,6 +295,17 @@ a {
   color: #7f3dff;
 }
 
+form div {
+  width: 100%;
+  position: relative;
+}
+.eye {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  cursor: pointer;
+}
+
 /* Login.js */
 
 .login-btn-container {

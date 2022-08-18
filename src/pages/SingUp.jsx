@@ -3,13 +3,23 @@ import Button from "../components/Button";
 import "../App.css";
 import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 function SingUp() {
   const name = useRef("");
   const email = useRef("");
   const password = useRef("");
   const TC = useRef("");
+  const passwordEye = useRef();
+  const [type, setType] = useState("password");
+
+  function togglePassword() {
+    setType(type === "password" ? "text" : "password");
+    console.log(password.current);
+    console.log(type, " === ", password.current.type);
+    console.log(password.current.type);
+    console.log(type);
+  }
 
   function onSubmit() {
     if (TC.current.checked === true) {
@@ -45,13 +55,20 @@ function SingUp() {
           className="forms"
           ref={email}
         ></input>
-        <input
-          placeholder="Password"
-          name="Password"
-          type={"password"}
-          className="forms"
-          ref={password}
-        ></input>
+        <div>
+          <input
+            placeholder="Password"
+            name="Password"
+            type={type}
+            className="forms"
+            minLength={8}
+            ref={password}
+            required={true}
+          ></input>
+          <i className="eye" ref={passwordEye} onClick={() => togglePassword()}>
+            <img alt="eye" src="/assets/eye.svg"></img>
+          </i>
+        </div>
       </form>
       <label className="TC">
         By signing up, you agree to the{" "}
