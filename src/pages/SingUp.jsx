@@ -20,6 +20,9 @@ function SingUp() {
   }
 
   function onSubmit() {
+    // if ||
+    // sacar la referencia del input vacio
+    // se cambiaria la clase por emptyImput
     if (TC.current.checked === true) {
       console.log("Validation has been sent with the following data");
       console.log(`${name.current.name}: ${name.current.value}`);
