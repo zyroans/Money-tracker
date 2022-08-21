@@ -5,6 +5,7 @@ import SingUp from "./pages/SingUp";
 import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Resume from "./pages/Resume";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="sign-up" element={<SingUp />} />
       <Route path="login" element={<Login />} />
       <Route path="resume" element={<Resume />} />
+      <Route path="testing" element={<Test />} />
     </Routes>
   );
 }
