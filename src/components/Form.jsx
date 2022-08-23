@@ -2,9 +2,8 @@ import React from "react";
 // import { useRef } from "react";
 import PropTypes from "prop-types";
 
-function Form({ type, className, required, minLength, name }) {
-  // const {ref} = useRef()
-  return (
+const Form = React.forwardRef(
+  (type, className, required, minLength, name, ref) => (
     <input
       type={type}
       className={className}
@@ -12,9 +11,10 @@ function Form({ type, className, required, minLength, name }) {
       minLength={minLength}
       placeholder={name}
       name={name}
+      ref={ref}
     ></input>
-  );
-}
+  )
+);
 
 Form.propTypes = {
   type: PropTypes.string,
