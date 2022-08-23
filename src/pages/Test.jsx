@@ -9,10 +9,13 @@ export default function Test() {
   const email = React.createRef();
   const password = React.createRef();
   function onSubmit() {
-    console.log("Validation has been sent with the following data");
-    console.log(`${name.current.name}: ${name.current.value}`);
-    console.log(`${email.current.name}: ${email.current.value}`);
-    console.log(`${password.current.name}: ${password.current.value}`);
+    const formFilled = [];
+    formFilled.push(`${name.current.name}: ${name.current.value}`);
+    formFilled.push(`${email.current.name}: ${email.current.value}`);
+    formFilled.push(`${password.current.name}: ${password.current.value}`);
+    console.log(
+      `Validation has been sent with the following data ${formFilled}`
+    );
   }
 
   return (

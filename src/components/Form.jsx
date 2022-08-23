@@ -1,20 +1,19 @@
 import React from "react";
 // import { useRef } from "react";
 import PropTypes from "prop-types";
+import "../App.css";
 
-const Form = React.forwardRef(
-  (type, className, required, minLength, name, ref) => (
-    <input
-      type={type}
-      className={className}
-      required={required}
-      minLength={minLength}
-      placeholder={name}
-      name={name}
-      ref={ref}
-    ></input>
-  )
-);
+const Form = React.forwardRef((props, ref) => (
+  <input
+    ref={ref}
+    type={props.type}
+    className={props.className}
+    required={props.required}
+    minLength={props.minLength}
+    placeholder={props.name}
+    name={props.name}
+  ></input>
+));
 
 Form.propTypes = {
   type: PropTypes.string,
