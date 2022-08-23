@@ -4,14 +4,22 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import BackButton from "../components/BackButton";
 import { useRef, useState } from "react";
+import ValidatableInput from "../components/ValidatableInput";
 
 function Login() {
-  const password = useRef();
-  const passwordEye = useRef();
-  const [type, setType] = useState("password");
-  function togglePassword() {
-    setType(type === "password" ? "text" : "password");
+  var emailRef = useRef({});
+  var passwordRef = useRef({});
+
+  function submitLogin() {
+    let emailIsValid = emailRef.current.validate()
+    let passwordIsValid = passwordRef.current.validate()
+    if (emailIsValid && passwordIsValid) {
+      console.log("Form is valid")
+    } else {
+      console.log("form is invalid")
+    }
   }
+
   return (
     <div className="home-container">
       <div className="page-navigation-container">
@@ -24,23 +32,16 @@ function Login() {
         <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
-        <input type={"email"} placeholder={"Email"} className="forms" />
-        <div>
-          <input
-            placeholder="Password"
-            name="Password"
-            type={type}
-            className="forms"
-            ref={password}
-            required={true}
-          ></input>
-          <i className="eye" ref={passwordEye} onClick={togglePassword}>
-            <img alt="eye" src="/assets/eye.svg"></img>
-          </i>
-        </div>
+        <ValidatableInput type={"email"} placeholder={"Email"} className="forms" outsideRef={emailRef} />
+        <ValidatableInput
+          placeholder="Password"
+          name="Password"
+          type="password"
+          className="forms"
+          outsideRef={passwordRef} />
       </form>
       <div className="login-btn-container">
-        <Button text={"Login"} />
+        <Button text={"Login"} action={submitLogin} />
       </div>
       <div className="login-links-container">
         <a href="www.google.com" className="login-forgot-password">

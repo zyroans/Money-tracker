@@ -3,6 +3,7 @@
   margin: 0px;
   padding: 0px;
 }
+
 .home-container {
   background-color: #fff;
   padding: 0 16px;
@@ -97,6 +98,10 @@
   box-sizing: border-box;
 }
 
+.error {
+  border: 1px solid red;
+}
+
 input::placeholder {
   font-family: "Inter";
   font-style: normal;
@@ -173,10 +178,12 @@ button:hover {
   font-size: 18px;
   line-height: 22px;
 }
+
 .page-title-container {
   display: flex;
   align-items: center;
 }
+
 .page-title-fill {
   width: 32px;
   height: 32px;
@@ -203,6 +210,7 @@ button:hover {
   font-size: 14px;
   line-height: 18px;
 }
+
 .TC input {
   position: absolute;
   opacity: 0;
@@ -222,11 +230,11 @@ button:hover {
   background-color: #fff;
 }
 
-.TC:hover input ~ .checkmark {
+.TC:hover input~.checkmark {
   background-color: #ccc;
 }
 
-.TC input:checked ~ .checkmark {
+.TC input:checked~.checkmark {
   background-color: #2196f3;
 }
 
@@ -236,7 +244,7 @@ button:hover {
   display: none;
 }
 
-.TC input:checked ~ .checkmark:after {
+.TC input:checked~.checkmark:after {
   display: block;
 }
 
@@ -252,7 +260,7 @@ button:hover {
   transform: rotate(45deg);
 }
 
-.TC > a {
+.TC>a {
   text-decoration: none;
 }
 
@@ -267,7 +275,7 @@ button:hover {
   gap: 10px;
 }
 
-.btn-container > p {
+.btn-container>p {
   font-family: "Inter";
   font-style: normal;
 
@@ -297,6 +305,7 @@ form div {
   width: 100%;
   position: relative;
 }
+
 .eye {
   position: absolute;
   width: 25px;
@@ -306,6 +315,7 @@ form div {
   right: 15px;
   cursor: pointer;
 }
+
 .eye img {
   opacity: 0.5;
   width: 100%;
@@ -337,6 +347,7 @@ form div {
   gap: 16px;
   justify-content: center;
 }
+
 .account-balance-income {
   width: 164px;
   height: 80px;
@@ -344,6 +355,7 @@ form div {
   border-radius: 28px;
   color: #fff;
 }
+
 .account-balance-expenses {
   width: 164px;
   height: 80px;
@@ -354,11 +366,9 @@ form div {
 
 /* Resume.js */
 .resume-container {
-  background: linear-gradient(
-    183.33deg,
-    #fff6e6 9.56%,
-    rgba(248, 237, 216, 0) 124.27%
-  );
+  background: linear-gradient(183.33deg,
+      #fff6e6 9.56%,
+      rgba(248, 237, 216, 0) 124.27%);
 }
 
 .resume-header {
