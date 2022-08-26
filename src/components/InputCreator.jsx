@@ -1,13 +1,12 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-function Empanada({ type, className, isRequired, name, outsideRef }) {
+function InputCreator({ type, className, name, outsideRef }) {
   const [passwordIcon, setPasswordIcon] = useState("show");
   const passwordEye = useRef();
   const insideRef = useRef();
 
   function validate() {
-    console.log("se ejecuta validate");
     let inputType = insideRef.current.type;
     let inputValue = insideRef.current.value;
     let minLength = 0;
@@ -20,31 +19,28 @@ function Empanada({ type, className, isRequired, name, outsideRef }) {
     }; 
     `${inputType}`Parameters.validated*/
     if (inputType === "text") {
-      console.log("entro por name");
       minLength = 3;
     } else if (inputType === "password") {
-      console.log("entro por password");
       minLength = 8;
     } else if (inputType === "email") {
       minLength = 5;
-      console.log("entro por email");
     }
     if (inputValue.length >= minLength) {
       insideRef.current.className = "forms";
-      console.log("debe morir");
       return true;
     }
-    console.log("esta pasando");
+
     insideRef.current.className = "forms error";
     return false;
   }
 
   function togglePassword() {
     let currentType = insideRef.current.type;
-    console.log("current type", currentType);
+
     insideRef.current.type = currentType === "text" ? "password" : "text";
     setPasswordIcon(insideRef.current.type === "password" ? "show" : "hide");
   }
+  outsideRef.current.value = undefined;
   outsideRef.current.validate = validate;
 
   return (
@@ -53,9 +49,9 @@ function Empanada({ type, className, isRequired, name, outsideRef }) {
         ref={insideRef}
         type={type}
         className={className}
-        required={isRequired}
         placeholder={name}
         name={name}
+        onChange={() => (outsideRef.current.value = insideRef.current.value)}
       ></input>
       {type === "password" && (
         <i className="eye" ref={passwordEye} onClick={togglePassword}>
@@ -65,8 +61,8 @@ function Empanada({ type, className, isRequired, name, outsideRef }) {
     </div>
   );
 }
-Empanada.defaultProps = {
+InputCreator.defaultProps = {
   outsideRef: { current: {} },
 };
 
-export default Empanada;
+export default InputCreator;

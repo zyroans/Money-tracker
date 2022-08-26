@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import BackButton from "../components/BackButton";
 import { useRef } from "react";
-import Empanada from "../components/Empanada";
+import InputCreator from "../components/InputCreator";
 
 function Test() {
   const nameRef = useRef({});
@@ -12,11 +12,12 @@ function Test() {
   const passwordRef = useRef({});
 
   function submitLogin() {
-    let nameIsValid = nameRef.current.validate();
-    let emailIsValid = emailRef.current.validate();
-    let passwordIsValid = passwordRef.current.validate();
+    const nameIsValid = nameRef.current.validate();
+    const emailIsValid = emailRef.current.validate();
+    const passwordIsValid = passwordRef.current.validate();
     if (emailIsValid && passwordIsValid && nameIsValid) {
       console.log(nameRef);
+
       console.log("Form is valid");
     } else {
       console.log("form is invalid");
@@ -35,21 +36,19 @@ function Test() {
         <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
-        <Empanada
+        <InputCreator
           type={"text"}
           name={"Name"}
           className={"forms"}
           outsideRef={nameRef}
         />
-        <Empanada
+        <InputCreator
           type={"email"}
           name={"Email"}
-          placeholder={"Email"}
           className="forms"
           outsideRef={emailRef}
         />
-        <Empanada
-          placeholder="Password"
+        <InputCreator
           name="Password"
           type="password"
           className="forms"
