@@ -12,19 +12,27 @@ function SingUp() {
   const passwordRef = useRef({});
   const TC = useRef("");
 
-  function onSubmit() {
-    // if ||
-    // sacar la referencia del input vacio
-    // se cambiaria la clase por emptyImput
+  async function onSubmit() {
     if (TC.current.checked === true) {
       const nameIsValid = nameRef.current.validate();
       const emailIsValid = emailRef.current.validate();
       const passwordIsValid = passwordRef.current.validate();
       if (emailIsValid && passwordIsValid && nameIsValid) {
-        console.log(nameRef);
-        console.log(emailRef);
-        console.log(passwordRef);
-        console.log("Form is valid");
+        const formDataValidated = {
+          name: nameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        };
+        const rawResponse = await fetch("https://httpbin.org/post", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formDataValidated),
+        });
+        const content = await rawResponse.json();
+        console.log(content);
       } else {
         console.log("form is invalid");
       }

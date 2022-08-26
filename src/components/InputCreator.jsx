@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 function InputCreator({ type, className, name, outsideRef }) {
   const [passwordIcon, setPasswordIcon] = useState("show");
