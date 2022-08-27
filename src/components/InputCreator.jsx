@@ -1,14 +1,23 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function InputCreator({ type, className, name, outsideRef }) {
   const [passwordIcon, setPasswordIcon] = useState("show");
+  const [errorVisible, setErrorVisible] = useState(false);
   const passwordEye = useRef();
   const insideRef = useRef();
+  const errorRef = useRef("");
+
+  useEffect(() => {
+    outsideRef.current.value = undefined;
+    outsideRef.current.validate = validate;
+    insideRef.current.error = " ";
+  });
 
   function validate() {
-    let inputType = insideRef.current.type;
-    let inputValue = insideRef.current.value;
+    const inputType = insideRef.current.type;
+    const inputValue = insideRef.current.value;
+
     let minLength = 0;
 
     /* const nameParameters = { length: 3, validated: true };
@@ -27,10 +36,13 @@ function InputCreator({ type, className, name, outsideRef }) {
     }
     if (inputValue.length >= minLength) {
       insideRef.current.className = "forms";
+      setErrorVisible(false);
       return true;
     }
 
     insideRef.current.className = "forms error";
+    errorRef.current.value = "Formato invalido";
+    setErrorVisible(true);
     return false;
   }
 
@@ -40,25 +52,34 @@ function InputCreator({ type, className, name, outsideRef }) {
     insideRef.current.type = currentType === "text" ? "password" : "text";
     setPasswordIcon(insideRef.current.type === "password" ? "show" : "hide");
   }
-  outsideRef.current.value = undefined;
-  outsideRef.current.validate = validate;
 
   return (
-    <div>
-      <input
-        ref={insideRef}
-        type={type}
-        className={className}
-        placeholder={name}
-        name={name}
-        onChange={() => (outsideRef.current.value = insideRef.current.value)}
-      ></input>
-      {type === "password" && (
-        <i className="eye" ref={passwordEye} onClick={togglePassword}>
-          <img alt="eye" src={`/assets/${passwordIcon}.png`}></img>
-        </i>
-      )}
-    </div>
+    <>
+      <div>
+        <div>
+          <input
+            ref={insideRef}
+            type={type}
+            className={className}
+            placeholder={name}
+            name={name}
+            onChange={() =>
+              (outsideRef.current.value = insideRef.current.value)
+            }
+          ></input>
+          {type === "password" && (
+            <i className="eye" ref={passwordEye} onClick={togglePassword}>
+              <img alt="eye" src={`/assets/${passwordIcon}.png`}></img>
+            </i>
+          )}
+        </div>
+        <div className="error-container" ref={errorRef}>
+          {errorVisible === true && (
+            <p className="error-message">{errorRef.current.value}</p>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 InputCreator.defaultProps = {
