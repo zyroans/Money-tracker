@@ -1,48 +1,42 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
+import validationRules from "../utils/RegEx";
 
 function InputCreator({ type, className, name, outsideRef }) {
   const [passwordIcon, setPasswordIcon] = useState("show");
-  const [errorVisible, setErrorVisible] = useState(false);
+  const [showImputError, setShowImputError] = useState(false);
   const passwordEye = useRef();
   const insideRef = useRef();
-  const errorRef = useRef("");
+  const errorRef = useRef();
 
   useEffect(() => {
     outsideRef.current.value = undefined;
     outsideRef.current.validate = validate;
-    insideRef.current.error = " ";
   });
 
-  function validate() {
+  async function validate() {
     const inputType = insideRef.current.type;
     const inputValue = insideRef.current.value;
-
-    let minLength = 0;
-
-    /* const nameParameters = { length: 3, validated: true };
-    const passwordParameters = { length: 8, validated: true };
-    const emailParameters = {
-      pattern: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/,
-      validated: true,
-    }; 
-    `${inputType}`Parameters.validated*/
-    if (inputType === "text") {
-      minLength = 3;
-    } else if (inputType === "password") {
-      minLength = 8;
-    } else if (inputType === "email") {
-      minLength = 5;
-    }
-    if (inputValue.length >= minLength) {
+    const isRegexOk = function (inputType, inputValue) {
+      if (inputType === "text") {
+        inputType = "name";
+      }
+      for (const rule of validationRules[inputType].rules) {
+        if (!rule.regex.test(inputValue)) {
+          console.log(rule.errorMessage);
+        }
+      }
+    };
+    console.log(inputType);
+    if (isRegexOk(inputType, inputValue)) {
       insideRef.current.className = "forms";
-      setErrorVisible(false);
+      setShowImputError(false);
       return true;
     }
 
     insideRef.current.className = "forms error";
     errorRef.current.value = "Formato invalido";
-    setErrorVisible(true);
+    setShowImputError(true);
     return false;
   }
 
@@ -74,7 +68,7 @@ function InputCreator({ type, className, name, outsideRef }) {
           )}
         </div>
         <div className="error-container" ref={errorRef}>
-          {errorVisible === true && (
+          {showImputError === true && (
             <p className="error-message">{errorRef.current.value}</p>
           )}
         </div>
