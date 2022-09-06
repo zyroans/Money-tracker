@@ -55,18 +55,21 @@ function SingUp() {
           type={"text"}
           className="forms"
           outsideRef={nameRef}
+          inputName="name"
         />
         <InputCreator
           name="Email"
           type={"email"}
           className="forms"
           outsideRef={emailRef}
+          inputName="email"
         />
         <InputCreator
           name="Password"
           type={"password"}
           className="forms"
           outsideRef={passwordRef}
+          inputName="password"
         />
       </form>
       <label className="TC">
