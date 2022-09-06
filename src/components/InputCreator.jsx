@@ -17,27 +17,34 @@ function InputCreator({ type, className, name, outsideRef }) {
   function validate() {
     const inputType = insideRef.current.type;
     const inputValue = insideRef.current.value;
+    console.log(`HERE WE GO WITH ${inputType}`);
     const isRegexOk = function (inputType, inputValue) {
+      console.log("IS REGEXOK RUNNING");
       if (inputType === "text") {
         inputType = "name";
       }
       for (const rule of validationRules[inputType].rules) {
+        console.log("VAMOS A VER SI SE CUMPLE LA EXPRESION");
+        console.log(`LA EXPRESION ES ${rule.regex.test(inputValue)}`);
         if (!rule.regex.test(inputValue)) {
-          console.log(inputType);
+          console.log(`ESTAMOS EXPRESION NO SE CUMPLIO ${rule.regex}`);
           console.log(rule.errorMessage);
           errorRef.current.value = rule.errorMessage;
-          insideRef.current.className = "forms error";
-          setShowImputError(true);
-          return false;
+        } else {
+          return true;
         }
       }
     };
 
     if (isRegexOk(inputType, inputValue)) {
+      console.log("LA EXPRESION SE CUMPLIO");
       insideRef.current.className = "forms";
       setShowImputError(false);
       return true;
     }
+    insideRef.current.className = "forms error";
+    setShowImputError(true);
+    return false;
   }
 
   function togglePassword() {
