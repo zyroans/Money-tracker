@@ -20,7 +20,7 @@ const validationRules = {
     rules: [
       {
         regex: /[\w.*!$#]{8,}/,
-        errorMessage: "Minimun lenght is 8 characters",
+        errorMessage: "minimun length is 8 characters",
       },
       {
         regex: /.*[A-Z].*/,
