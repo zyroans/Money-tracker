@@ -14,7 +14,7 @@ function InputCreator({ type, className, name, outsideRef }) {
     outsideRef.current.validate = validate;
   });
 
-  async function validate() {
+  function validate() {
     const inputType = insideRef.current.type;
     const inputValue = insideRef.current.value;
     const isRegexOk = function (inputType, inputValue) {
@@ -23,21 +23,21 @@ function InputCreator({ type, className, name, outsideRef }) {
       }
       for (const rule of validationRules[inputType].rules) {
         if (!rule.regex.test(inputValue)) {
+          console.log(inputType);
           console.log(rule.errorMessage);
+          errorRef.current.value = rule.errorMessage;
+          insideRef.current.className = "forms error";
+          setShowImputError(true);
+          return false;
         }
       }
     };
-    console.log(inputType);
+
     if (isRegexOk(inputType, inputValue)) {
       insideRef.current.className = "forms";
       setShowImputError(false);
       return true;
     }
-
-    insideRef.current.className = "forms error";
-    errorRef.current.value = "Formato invalido";
-    setShowImputError(true);
-    return false;
   }
 
   function togglePassword() {
