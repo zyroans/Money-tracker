@@ -47,11 +47,13 @@ function Login() {
       <form className="forms-container">
         <InputCreator
           name="Email"
+          inputName="email"
           type={"email"}
           className="forms"
           outsideRef={emailRef}
         />
         <InputCreator
+          inputName="password"
           name="Password"
           type={"password"}
           className="forms"
