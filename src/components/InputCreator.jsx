@@ -4,7 +4,7 @@ import validationRules from "../utils/RegEx";
 
 function InputCreator({ type, className, name, outsideRef, inputName }) {
   const [passwordIcon, setPasswordIcon] = useState("show");
-  const [showImputError, setShowImputError] = useState(false);
+  const [showInputError, setShowInputError] = useState(false);
   const passwordEye = useRef();
   const insideRef = useRef();
   const [errorMessagePrint, setErrorMessagePrint] = useState();
@@ -19,9 +19,6 @@ function InputCreator({ type, className, name, outsideRef, inputName }) {
     const inputValue = insideRef.current.value;
     const isRegexOk = function (inputType, inputValue) {
       const errorMessageFound = [];
-      if (inputType === "text") {
-        inputType = "name";
-      }
       for (const rule of validationRules[inputType].rules) {
         if (!rule.regex.test(inputValue)) {
           errorMessageFound.push(rule.errorMessage);
@@ -30,9 +27,7 @@ function InputCreator({ type, className, name, outsideRef, inputName }) {
 
       if (errorMessageFound.length > 0) {
         setErrorMessagePrint(
-          `${inputType} should contain at  least ${errorMessageFound.join(
-            ", "
-          )}`
+          `${inputType} should contain at least ${errorMessageFound.join(", ")}`
         );
         return false;
       } else {
@@ -42,12 +37,12 @@ function InputCreator({ type, className, name, outsideRef, inputName }) {
 
     if (isRegexOk(inputType, inputValue)) {
       insideRef.current.className = "forms";
-      setShowImputError(false);
+      setShowInputError(false);
       return true;
     }
 
     insideRef.current.className = "forms error";
-    setShowImputError(true);
+    setShowInputError(true);
     return false;
   }
 
@@ -79,7 +74,7 @@ function InputCreator({ type, className, name, outsideRef, inputName }) {
           )}
         </div>
         <div className="error-container">
-          {showImputError === true && (
+          {showInputError === true && (
             <p className="error-message">{errorMessagePrint}</p>
           )}
         </div>
