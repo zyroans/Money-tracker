@@ -17,10 +17,8 @@ function InputCreator({ type, className, name, outsideRef, inputName }) {
   function validate() {
     const inputType = inputName;
     const inputValue = insideRef.current.value;
-
     const isRegexOk = function (inputType, inputValue) {
       const errorMessageFound = [];
-
       if (inputType === "text") {
         inputType = "name";
       }
