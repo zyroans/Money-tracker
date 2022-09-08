@@ -16,7 +16,7 @@ function Login() {
     if (emailIsValid && passwordIsValid) {
       const formDataValidated = {
         email: emailRef.current.value,
-        password: passwordRef.current.value,
+        passwordHash: passwordRef.current.value,
       };
       const rawResponse = await fetch(
         "https://zyro-platti-api.herokuapp.com/users/login",
