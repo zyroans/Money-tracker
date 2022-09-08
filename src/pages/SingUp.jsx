@@ -23,14 +23,17 @@ function SingUp() {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         };
-        const rawResponse = await fetch("https://httpbin.org/post", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formDataValidated),
-        });
+        const rawResponse = await fetch(
+          "https://zyro-platti-api.herokuapp.com/users",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataValidated),
+          }
+        );
         const content = await rawResponse.json();
         console.log(content);
       } else {
