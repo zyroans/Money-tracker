@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import NavMenu from "../components/NavMenu/NavMenu";
+import NavBarMenu from "../components/NavBarMenu/NavBarMenu";
 import RecentTransactions from "../components/RecentTransactions/RecentTransactions";
 
 function Test() {
@@ -11,7 +11,7 @@ function Test() {
         <RecentTransactions />
       </main>
       <footer>
-        <NavMenu />
+        <NavBarMenu />
       </footer>
     </div>
   );

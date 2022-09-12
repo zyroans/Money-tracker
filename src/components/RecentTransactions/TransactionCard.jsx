@@ -6,7 +6,7 @@ export default function TransactionCard(props) {
     <div className="transaction-card">
       <img alt="category icon" src="" className="transaction-categoryIcon" />
       <h3 className="transaction-title">{props.title}</h3>
-      <div className="transaction-value">{props.value}</div>
+      <div className="transaction-value">{`$ ${props.value}`}</div>
       <p className="transaction-details">{props.details}</p>
     </div>
   );

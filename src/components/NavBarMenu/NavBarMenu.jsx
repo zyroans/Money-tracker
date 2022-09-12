@@ -1,10 +1,10 @@
 import React from "react";
-import "../NavMenu/NavMenu.css";
-import NavButtons from "./NavButtons";
+import "./NavBarMenu.css";
+import NavButtons from "./NavBarButtons";
 
-function NavMenu() {
+function NavBarMenu() {
   return (
-    <footer className="footer">
+    <footer className="navBar">
       <div>
         <button></button>
       </div>
@@ -18,4 +18,4 @@ function NavMenu() {
   );
 }
 
-export default NavMenu;
+export default NavBarMenu;

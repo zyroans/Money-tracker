@@ -5,9 +5,9 @@ import TransactionCard from "./TransactionCard";
 function RecentTransactions() {
   return (
     <div className="recent-transaction-container">
-      <div className="recent-transaction-container-header">
-        <h2>Recent Transaction</h2>
-        <button>See All</button>
+      <div className="recent-transaction-header-container">
+        <h2 className="recent-transaction-header-title">Recent Transaction</h2>
+        <button className="recent-transaction-header-btn">See All</button>
       </div>
       <TransactionCard
         title="Almuerzo"
@@ -18,6 +18,11 @@ function RecentTransactions() {
         title="Taxi aeropuerto"
         details="Taxi de ida al aeropuerto"
         value="50000"
+      />
+      <TransactionCard
+        title="Regalo amigo secreto"
+        details="Compra del amigo secreto de la empresa"
+        value="50.000"
       />
     </div>
   );

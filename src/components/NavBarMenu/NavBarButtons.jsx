@@ -1,7 +1,7 @@
 import React from "react";
-import "../NavMenu/NavMenu.css";
+import "./NavBarMenu.css";
 
-function NavButtons(props) {
+function NavBarButtons(props) {
   return (
     <button className="navBar-btn">
       <img
@@ -14,4 +14,4 @@ function NavButtons(props) {
   );
 }
 
-export default NavButtons;
+export default NavBarButtons;
