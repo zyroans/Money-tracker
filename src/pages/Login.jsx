@@ -18,17 +18,14 @@ function Login() {
         email: emailRef.current.value,
         passwordHash: passwordRef.current.value,
       };
-      const rawResponse = await fetch(
-        "https://zyro-platti-api.herokuapp.com/users/login",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formDataValidated),
-        }
-      );
+      const rawResponse = await fetch("https://904b-181-235-88-187.ngrok.io/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataValidated),
+      });
       const content = await rawResponse.json();
       console.log(content);
     } else {

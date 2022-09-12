@@ -34,10 +34,10 @@ const validationRules = {
         regex: /.*\d.*/,
         errorMessage: "one numeric character",
       },
-      {
-        regex: /.*[.*!$#].*/,
-        errorMessage: "one special character e.g .,*,$,#,!",
-      },
+      // {
+      //   regex: /.*[.*!$#].*/,
+      //   errorMessage: "one special character e.g .,*,$,#,!",
+      // },
     ],
   },
 };

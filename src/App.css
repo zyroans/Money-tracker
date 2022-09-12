@@ -4,6 +4,7 @@
   padding: 0px;
 }
 .home-container {
+  border: 1px solid #2196f3;
   background-color: #fff;
   padding: 0 16px;
   margin: 0 auto;

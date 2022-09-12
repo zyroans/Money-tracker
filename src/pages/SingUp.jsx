@@ -24,7 +24,7 @@ function SingUp() {
           passwordHash: passwordRef.current.value,
         };
         const rawResponse = await fetch(
-          "https://zyro-platti-api.herokuapp.com/users",
+          "https://904b-181-235-88-187.ngrok.io/users",
           {
             method: "POST",
             headers: {

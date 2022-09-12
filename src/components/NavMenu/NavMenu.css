@@ -1,0 +1,25 @@
+* {
+  font-size: 10px;
+}
+.footer {
+  height: 100%;
+}
+
+.navBar-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  height: 70px;
+}
+
+.navBar-btn {
+  background-color: #fff;
+  display: grid;
+}
+
+.navBar-btn-img {
+  max-width: 100%;
+}
+
+.navBar-btn-txt {
+  height: 100%;
+}
