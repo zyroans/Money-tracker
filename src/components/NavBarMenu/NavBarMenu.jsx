@@ -6,7 +6,23 @@ function NavBarMenu() {
   return (
     <footer className="navBar">
       <div>
-        <button></button>
+        <ol className="navBar-action-btn">
+          <li>
+            <button>
+              <img alt="action icon 1" src=""></img>
+            </button>
+          </li>
+          <li>
+            <button>
+              <img alt="action icon 2" src=""></img>
+            </button>
+          </li>
+          <li>
+            <button>
+              <img alt="action icon 3" src=""></img>
+            </button>
+          </li>
+        </ol>
       </div>
       <nav className="navBar-container">
         <NavButtons butonName={"Home"} />
