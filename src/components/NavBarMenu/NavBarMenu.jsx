@@ -25,10 +25,10 @@ function NavBarMenu() {
         </ol>
       </div>
       <nav className="navBar-container">
-        <NavButtons butonName={"Home"} />
-        <NavButtons butonName={"Transaction"} />
-        <NavButtons butonName={"Budget"} />
-        <NavButtons butonName={"Profile"} />
+        <NavButtons buttonName={"Home"} />
+        <NavButtons buttonName={"Transaction"} />
+        <NavButtons buttonName={"Budget"} />
+        <NavButtons buttonName={"Profile"} />
       </nav>
     </footer>
   );

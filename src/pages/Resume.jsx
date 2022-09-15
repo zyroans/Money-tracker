@@ -1,7 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import AccountBalance from "../components/AccountBalance";
 
 function Resume() {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className="home-container">
       <div className="resume-container">
