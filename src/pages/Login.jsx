@@ -3,15 +3,36 @@ import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import "../App.css";
 import BackButton from "../components/BackButton";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import InputCreator from "../components/InputCreator";
 
 function Login() {
-  const password = useRef();
-  const passwordEye = useRef();
-  const [type, setType] = useState("password");
-  function togglePassword() {
-    setType(type === "password" ? "text" : "password");
+  const emailRef = useRef({});
+  const passwordRef = useRef({});
+
+  async function onSubmit() {
+    const emailIsValid = emailRef.current.validate();
+    const passwordIsValid = passwordRef.current.validate();
+    if (emailIsValid && passwordIsValid) {
+      const formDataValidated = {
+        email: emailRef.current.value,
+        passwordHash: passwordRef.current.value,
+      };
+      const rawResponse = await fetch("https://904b-181-235-88-187.ngrok.io/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataValidated),
+      });
+      const content = await rawResponse.json();
+      console.log(content);
+    } else {
+      console.log("form is invalid");
+    }
   }
+
   return (
     <div className="home-container">
       <div className="page-navigation-container">
@@ -24,23 +45,23 @@ function Login() {
         <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
-        <input type={"email"} placeholder={"Email"} className="forms" />
-        <div>
-          <input
-            placeholder="Password"
-            name="Password"
-            type={type}
-            className="forms"
-            ref={password}
-            required={true}
-          ></input>
-          <i className="eye" ref={passwordEye} onClick={togglePassword}>
-            <img alt="eye" src="/assets/eye.svg"></img>
-          </i>
-        </div>
+        <InputCreator
+          name="Email"
+          inputName="email"
+          type={"email"}
+          className="forms"
+          outsideRef={emailRef}
+        />
+        <InputCreator
+          inputName="password"
+          name="Password"
+          type={"password"}
+          className="forms"
+          outsideRef={passwordRef}
+        />
       </form>
       <div className="login-btn-container">
-        <Button text={"Login"} />
+        <Button text={"Login"} action={onSubmit} />
       </div>
       <div className="login-links-container">
         <a href="www.google.com" className="login-forgot-password">

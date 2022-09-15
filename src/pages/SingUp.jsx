@@ -3,31 +3,42 @@ import Button from "../components/Button";
 import "../App.css";
 import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import InputCreator from "../components/InputCreator";
 
 function SingUp() {
-  const name = useRef("");
-  const email = useRef("");
-  const password = useRef("");
+  const nameRef = useRef({});
+  const emailRef = useRef({});
+  const passwordRef = useRef({});
   const TC = useRef("");
-  const passwordEye = useRef();
-  const [type, setType] = useState("password");
-  const [passwordIcon, setPasswordIcon] = useState("show");
 
-  function togglePassword() {
-    setType(type === "password" ? "text" : "password");
-    setPasswordIcon(type === "password" ? "hide" : "show");
-  }
-
-  function onSubmit() {
-    // if ||
-    // sacar la referencia del input vacio
-    // se cambiaria la clase por emptyImput
+  async function onSubmit() {
     if (TC.current.checked === true) {
-      console.log("Validation has been sent with the following data");
-      console.log(`${name.current.name}: ${name.current.value}`);
-      console.log(`${email.current.name}: ${email.current.value}`);
-      console.log(`${password.current.name}: ${password.current.value}`);
+      const nameIsValid = nameRef.current.validate();
+      const emailIsValid = emailRef.current.validate();
+      const passwordIsValid = passwordRef.current.validate();
+      if (emailIsValid && passwordIsValid && nameIsValid) {
+        const formDataValidated = {
+          name: nameRef.current.value,
+          email: emailRef.current.value,
+          passwordHash: passwordRef.current.value,
+        };
+        const rawResponse = await fetch(
+          "https://904b-181-235-88-187.ngrok.io/users",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataValidated),
+          }
+        );
+        const content = await rawResponse.json();
+        console.log(content);
+      } else {
+        console.log("form is invalid");
+      }
     } else alert("You need to agree Terms of Service and Privacy Policy");
   }
   return (
@@ -42,34 +53,27 @@ function SingUp() {
         <div className="page-title-fill"></div>
       </div>
       <form className="forms-container">
-        <input
-          placeholder="Name"
+        <InputCreator
           name="Name"
           type={"text"}
           className="forms"
-          ref={name}
-        ></input>
-        <input
-          placeholder="Email"
+          outsideRef={nameRef}
+          inputName="name"
+        />
+        <InputCreator
           name="Email"
           type={"email"}
           className="forms"
-          ref={email}
-        ></input>
-        <div>
-          <input
-            placeholder="Password"
-            name="Password"
-            type={type}
-            className="forms"
-            minLength={8}
-            ref={password}
-            required={true}
-          ></input>
-          <i className="eye" ref={passwordEye} onClick={() => togglePassword()}>
-            <img alt="eye" src={`/assets/${passwordIcon}.png`}></img>
-          </i>
-        </div>
+          outsideRef={emailRef}
+          inputName="email"
+        />
+        <InputCreator
+          name="Password"
+          type={"password"}
+          className="forms"
+          outsideRef={passwordRef}
+          inputName="password"
+        />
       </form>
       <label className="TC">
         By signing up, you agree to the{" "}

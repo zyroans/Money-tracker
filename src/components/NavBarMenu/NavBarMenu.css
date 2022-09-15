@@ -1,0 +1,34 @@
+.navBar {
+  background-color: #fcfcfc;
+  height: 100%;
+}
+
+.navBar-action-btn {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  background-color: #7f3dff;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+}
+
+.navBar-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  height: 70px;
+  column-gap: 25px;
+}
+
+.navBar-btn {
+  background-color: #fff;
+  display: grid;
+}
+
+.navBar-btn-img {
+  max-width: 100%;
+}
+
+.navBar-btn-txt {
+  height: 100%;
+}
