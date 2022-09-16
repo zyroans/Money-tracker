@@ -5,7 +5,7 @@ import NavButtons from "./NavBarButtons";
 function NavBarMenu() {
   return (
     <footer className="navBar">
-      <div>
+      <div className="navBar-action-btn-container">
         <ol className="navBar-action-btn">
           <li>
             <button>
@@ -24,7 +24,7 @@ function NavBarMenu() {
           </li>
         </ol>
       </div>
-      <nav className="navBar-container">
+      <nav className="navBar-link-container">
         <NavButtons buttonName={"Home"} />
         <NavButtons buttonName={"Transaction"} />
         <NavButtons buttonName={"Budget"} />

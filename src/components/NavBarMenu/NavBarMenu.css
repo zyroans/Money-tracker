@@ -3,6 +3,17 @@
   height: 100%;
 }
 
+.navBar-action-btn-container {
+  position: relative;
+  left: 50%;
+  display: flex;
+}
+
+.navBar-action-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
 .navBar-action-btn {
   height: 56px;
   width: 56px;
@@ -10,25 +21,28 @@
   background-color: #7f3dff;
   color: #fff;
   border: none;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
-.navBar-container {
+.navBar-link-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
   height: 70px;
   column-gap: 25px;
 }
 
-.navBar-btn {
+.navBar-link {
+  font-size: 0.625rem;
   background-color: #fff;
   display: grid;
+  border: none;
+  justify-content: center;
 }
 
-.navBar-btn-img {
+.navBar-link-img {
   max-width: 100%;
 }
 
-.navBar-btn-txt {
+.navBar-link-txt {
   height: 100%;
 }
