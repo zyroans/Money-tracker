@@ -1,17 +1,14 @@
 .navBar {
   background-color: #fcfcfc;
   height: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navBar-action-btn-container {
-  position: relative;
-  left: 50%;
-  display: flex;
 }
 
 .navBar-action-btn {
-  display: flex;
-  justify-content: space-between;
 }
 
 .navBar-action-btn {
@@ -25,16 +22,18 @@
 }
 
 .navBar-link-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
+  font-size: 0.625rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  column-gap: 3em;
   height: 70px;
-  column-gap: 25px;
 }
 
 .navBar-link {
   font-size: 0.625rem;
+  width: 5em;
   background-color: #fff;
-  display: grid;
   border: none;
   justify-content: center;
 }
