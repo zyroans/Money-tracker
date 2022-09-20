@@ -11,7 +11,7 @@ function NavBarMenu() {
       </nav>
       <div className="navBar-action-btn-container">
         <ol className="navBar-action-btn">
-          <li>
+          {/* <li>
             <button>
               <img
                 alt="action icon 1"
@@ -34,7 +34,7 @@ function NavBarMenu() {
                 src="/assets/NavButtonsIcons/expense.svg"
               ></img>
             </button>
-          </li>
+          </li> */}
         </ol>
       </div>
       <nav className="navBar-link-container">

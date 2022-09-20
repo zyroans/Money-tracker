@@ -1,4 +1,5 @@
 .navBar {
+  position: absolute;
   background-color: #fcfcfc;
   height: 100%;
   display: flex;
@@ -6,6 +7,10 @@
 }
 
 .navBar-action-btn-container {
+  position: relative;
+  color: #ffffff;
+  z-index: 3;
+  transform: translate3d(0px, -22px, 0px);
 }
 
 .navBar-action-btn {
